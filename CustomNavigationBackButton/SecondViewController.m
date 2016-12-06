@@ -23,12 +23,24 @@ static NSString *BACK_TITILE = @"Back";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Second";
-    [self addCustomBackBtn];
+    //The first kind of use, should remove.
+//    [self addCustomBackBtn];
+    
+    //The second kind of use
+    [self addBarButtonItems];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self removeCustomBackButton];
+}
+
+- (void)addBarButtonItems {
+    UIView *leftButtonItemView = [[CustomNavigationBackButton alloc] initCustomNavigationBackButton:BACK_ICON buttonTitle:BACK_TITILE withViewTag:NAVIGATION_BAR_TAG withBtnTag:NAVIGATION_BUTTON_TAG targetObject:self selector:@selector(touchUpBackButton)];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButtonItemView];
+    UIBarButtonItem *leftNegativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    leftNegativeSpacer.width = -17;
+    self.navigationItem.leftBarButtonItems = @[leftNegativeSpacer, leftBarButtonItem];
 }
 
 - (void)addCustomBackBtn {
